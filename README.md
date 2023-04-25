@@ -25,6 +25,8 @@ v1.0.0 (26 Apr 2023)
 
 FontApp is distributed as a zip file and is portable, so just download the latest release, unzip it somewhere and then launch the `FontApp` exectable inside the unzipped folder.
 
+FontApp requires the .NET Desktop Runtime (version7.0 x64) which you can download from [Microsofts download page](https://dotnet.microsoft.com/en-us/download/dotnet/7.0).
+
 <hr>
 
 ### Use
