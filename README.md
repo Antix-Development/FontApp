@@ -45,7 +45,7 @@ Once you have selected a font you can change its appearance using any of the ava
 
 **Size** -  Change the size control to change the size of the selected font.
 
-**Style** - There are four styles to choose from..
+**Style** - Select a style for your font from the dropdown box. There are four styles to choose from..
 
 - Regular
 - **Bold**
@@ -82,7 +82,7 @@ You can also change a few rudimentary export options in the `Export Options` sec
 
 - Glyph Spacing -  Only of use if you really need it (like me).
 
-**Format** - There are two possible formats that the descriptors will be exported in...
+**Format** - There are two possible formats that the descriptors can be exported in...
 
 - Text - The descriptor file will be exported in a plain old text file, with each line in the file describing some aspect of the font.
 
@@ -123,7 +123,7 @@ Parsing the text file should be trivial and you can look in the FontApp code to 
 
 Parsing the JSON file will be more problematic as you will need a class to decode to and will require some 3rd party package such as [Json.NET](https://www.newtonsoft.com/json) to perform the decoding.
 
-NOTE: I decided to not include the aforementioned package in FontApp, and instead manually exported the JSON file in my own code.
+NOTE: I decided to not include the aforementioned package in FontApp, and instead manually generated exported the JSON file in code.
 
 NOTE: There will be more glyph lines and JSON objects in your own output if you decide to export more than the SPACE character, extras have been omitted in the above examples for readability :)
 
@@ -131,14 +131,16 @@ NOTE: There will be more glyph lines and JSON objects in your own output if you 
 
 As well as creating a descriptor file, exporting will create an image file for the atlas in PNG format.
 
-NOTE: Each glyph in the atlas is padded oin all sides by one pixel.
+NOTE: Each glyph in the atlas is padded on all sides by one pixel.
 
 <hr>
 
 ### Notes
 
+FontApp is a Windows application and I'm not sure if it could even be compiled for other platforms.
+
 As you can probably tell, there are a bunch of extra features and what not that could be added to make FontApp better. Raise an issue if you really want it made so and I'll try my lame best ;)
 
-FontApp has been created for my personal use as part of my [FNA](https://fna-xna.github.io/) based 2D game engine experiment, because you can't really write your own GUI framework without bitmap fonts. This being the case, there may be nasty bugs (features?) present in FontApp, however, since FontApp is fully open sourced, you can fix those bugs yourself, or maybe raise an issue here and I'll do my best to resolve it.
+FontApp has been created for my personal use as part of my [FNA](https://fna-xna.github.io/) based 2D game engine. This being the case, there may be nasty bugs (features?) present in FontApp, however, since FontApp is fully open sourced, you can fix those bugs yourself, or maybe raise an issue here and I'll do my best to resolve it.
 
-If you use FontApp and think it's cool, maybe you would consider [buying me a coffee](https://www.buymeacoffee.com/antixdevelu) :)
+And lastly, if you use FontApp and think it's cool, maybe you would consider [buying me a coffee](https://www.buymeacoffee.com/antixdevelu) :)
