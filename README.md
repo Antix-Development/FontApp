@@ -127,6 +127,8 @@ Parsing the JSON file will be more problematic as you will need a class to decod
 
 NOTE: I decided to not include the aforementioned package in FontApp, and instead manually generated exported the JSON file in code.
 
+NOTE: All exported glyphs are the same height, which is the height of the tallest glyph in the font.
+
 NOTE: There will be more glyph lines and JSON objects in your own output if you decide to export more than the SPACE character, extras have been omitted in the above examples for readability :)
 
 #### The Atlas
