@@ -296,6 +296,8 @@ namespace FontApp
         /// <param name="e"></param>
         void OutlineColor_Label_Click(object sender, EventArgs e)
         {
+            colorDialog1.Color = OutlineColor;
+
             if (colorDialog1.ShowDialog() != DialogResult.OK) return;
 
             var color = colorDialog1.Color;
@@ -312,6 +314,7 @@ namespace FontApp
         /// <param name="e"></param>
         void FillColor_Label_Click(object sender, EventArgs e)
         {
+            colorDialog1.Color = FillColor;
 
             if (colorDialog1.ShowDialog() != DialogResult.OK) return;
 
@@ -832,6 +835,8 @@ namespace FontApp
         /// <param name="e"></param>
         void AtlasBackground_Label_Click(object sender, EventArgs e)
         {
+            colorDialog1.Color = AtlasBackgroundColor;
+
             if (colorDialog1.ShowDialog() != DialogResult.OK) return;
 
             var color = colorDialog1.Color;

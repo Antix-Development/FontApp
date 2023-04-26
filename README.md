@@ -15,13 +15,19 @@ WARNING:  Some fonts don't render correctly at all and some fonts also exhibit g
 
 ### What's New?
 
-v1.0.1 (27 Apr 2023)
+v1.0.2 (28 Apr 2023)
+
+- ColorDialog now opens with the correct color selected.
+
+<details><summary>v1.0.0 (v1.0.1 (27 Apr 2023))</summary><p>
 
 - Fixed issue where about dialog hyperlinks had been omitted.
 - Fixed issue where atlas background color was not being reset to the correct color when a new project is created.
 - Glyphs can now be rendered in pixelated or smooth modes.
 - Added a zoom feature.
 - Tweaked user interface.
+
+</p></details>
 
 <details><summary>v1.0.0 (26 Apr 2023)</summary><p>
 
