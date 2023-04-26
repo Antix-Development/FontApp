@@ -97,7 +97,7 @@ namespace FontApp
         #endregion
 
         #region Font Settings
-        
+
         /// <summary>
         /// Set antialias setting
         /// </summary>
@@ -780,7 +780,7 @@ namespace FontApp
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void NewProject_MenuItem_Click(object sender, EventArgs e) => NewProject();
-        
+
         /// <summary>
         /// Reset everything
         /// </summary>

@@ -50,12 +50,14 @@
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
+            linkLabel1.Cursor = Cursors.Hand;
             linkLabel1.Location = new Point(146, 101);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(181, 15);
             linkLabel1.TabIndex = 3;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Visit FontApp GitHub  repository.";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // pictureBox1
             // 
@@ -78,12 +80,14 @@
             // linkLabel2
             // 
             linkLabel2.AutoSize = true;
+            linkLabel2.Cursor = Cursors.Hand;
             linkLabel2.Location = new Point(146, 131);
             linkLabel2.Name = "linkLabel2";
             linkLabel2.Size = new Size(100, 15);
             linkLabel2.TabIndex = 8;
             linkLabel2.TabStop = true;
             linkLabel2.Text = "Buy Cliff a coffee.";
+            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
             // 
             // label4
             // 
@@ -122,6 +126,8 @@
             MinimizeBox = false;
             Name = "Form2";
             ShowIcon = false;
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
             Text = "About";
             Load += Form2_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

@@ -780,6 +780,7 @@
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
+            MinimumSize = new Size(720, 620);
             Name = "Form1";
             Text = "FontApp";
             FormClosing += Form1_FormClosing;
