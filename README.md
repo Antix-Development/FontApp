@@ -15,9 +15,18 @@ WARNING:  Some fonts don't render correctly at all and some fonts also exhibit g
 
 ### What's New?
 
-v1.0.2 (28 Apr 2023)
+v1.0.3 (28 Apr 2023)
 
-- ColorDialog now opens with the correct color selected.
+- Fixed issue where you could save a project without having any font selected.
+- Fixed issue where you could initiate an export without any font selected.
+- Made the exit menuitem actually exit the application :D
+
+<details><summary>v1.0.2 (28 Apr 2023)</summary><p>
+
+- Initial public release.
+
+</p></details>
+
 
 <details><summary>v1.0.1 (v1.0.1 (27 Apr 2023))</summary><p>
 

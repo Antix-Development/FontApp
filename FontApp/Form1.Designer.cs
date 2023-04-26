@@ -110,7 +110,7 @@
             SystemFonts_ListBox.Name = "SystemFonts_ListBox";
             SystemFonts_ListBox.ScrollAlwaysVisible = true;
             SystemFonts_ListBox.Size = new Size(220, 124);
-            SystemFonts_ListBox.TabIndex = 0;
+            SystemFonts_ListBox.TabIndex = 1000;
             SystemFonts_ListBox.SelectedIndexChanged += SystemFonts_ListBox_SelectedIndexChanged;
             // 
             // label1
@@ -742,8 +742,10 @@
             // QuitFontApp_ToolStripMenuItem
             // 
             QuitFontApp_ToolStripMenuItem.Name = "QuitFontApp_ToolStripMenuItem";
+            QuitFontApp_ToolStripMenuItem.ShortcutKeys = Keys.Alt | Keys.F4;
             QuitFontApp_ToolStripMenuItem.Size = new Size(186, 22);
             QuitFontApp_ToolStripMenuItem.Text = "E&xit";
+            QuitFontApp_ToolStripMenuItem.Click += QuitFontApp_ToolStripMenuItem_Click;
             // 
             // toolsToolStripMenuItem
             // 
@@ -755,16 +757,17 @@
             // Export_ToolStripMenuItem
             // 
             Export_ToolStripMenuItem.Name = "Export_ToolStripMenuItem";
-            Export_ToolStripMenuItem.ShortcutKeyDisplayString = "CTRL+E";
-            Export_ToolStripMenuItem.Size = new Size(196, 22);
+            Export_ToolStripMenuItem.ShortcutKeyDisplayString = "";
+            Export_ToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F2;
+            Export_ToolStripMenuItem.Size = new Size(202, 22);
             Export_ToolStripMenuItem.Text = "&Export";
             Export_ToolStripMenuItem.Click += Export_ToolStripMenuItem_Click;
             // 
             // ExportAs_ToolStripMenuItem
             // 
             ExportAs_ToolStripMenuItem.Name = "ExportAs_ToolStripMenuItem";
-            ExportAs_ToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.E;
-            ExportAs_ToolStripMenuItem.Size = new Size(196, 22);
+            ExportAs_ToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.F2;
+            ExportAs_ToolStripMenuItem.Size = new Size(202, 22);
             ExportAs_ToolStripMenuItem.Text = "Export As";
             ExportAs_ToolStripMenuItem.Click += exportAsToolStripMenuItem_Click;
             // 

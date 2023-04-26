@@ -873,7 +873,11 @@ namespace FontApp
             SystemFonts_ListBox.SelectedIndex = -1;
             Output_PictureBox.Image = null;
 
-            SystemFontName = "Arial";
+            SystemFontName = null;
+            CustomFontName = null;
+
+            OutputFont = null;
+
             GridFont = new Font("Arial", GridFontSize, FontStyle.Regular);
             GlyphGrid_Label.Refresh();
 
@@ -938,6 +942,8 @@ namespace FontApp
         /// </summary>
         void SaveProjectAs()
         {
+            if (CustomFontName == null && SystemFontName == null) return;
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "FontApp files (*.fap)|*.fap|All Files(*.*)|*.*";
             saveFileDialog.FilterIndex = 0;
@@ -1334,6 +1340,16 @@ namespace FontApp
             aboutForm.Left = this.Left + 64;
             aboutForm.Top = this.Top + 64;
             aboutForm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Close FontApp
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void QuitFontApp_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         #endregion
