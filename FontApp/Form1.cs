@@ -575,7 +575,6 @@ namespace FontApp
             Zoom();
         }
 
-
         #region Calculate glyph bounds
 
         /// <summary>
