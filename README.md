@@ -15,9 +15,19 @@ WARNING:  Some fonts don't render correctly at all and some fonts also exhibit g
 
 ### What's New?
 
-v1.0.0 (26 Apr 2023)
+v1.0.1 (27 Apr 2023)
+
+- Fixed issue where about dialog hyperlinks had been omitted.
+- Fixed issue where atlas background color was not being reset to the correct color when a new project is created.
+- Glyphs can now be rendered in pixelated or smooth modes.
+- Added a zoom feature.
+- Tweaked user interface.
+
+<details><summary>v1.0.0 (26 Apr 2023)</summary><p>
 
 - Initial public release.
+
+</p></details>
 
 <hr>
 
@@ -58,7 +68,10 @@ NOTE: Some styles don't seem to work with some fonts, don't ask me why.
 
 **Spacing** - This setting has no visible effect inside FontApp, it is present for the case where you might want that value available in your own applications.
 
-**AntiAliasing** - Currently not implemented.. everything renders with full antialiasing.
+**Render Mode** - You can choose two different rendering modes:
+
+- Pixelated
+- Smooth
 
 **Fill** - Click the colored rectangle to change the fill color of the font.
 

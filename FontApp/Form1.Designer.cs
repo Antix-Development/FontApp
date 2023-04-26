@@ -37,7 +37,7 @@
             label2 = new Label();
             GlyphGrid_Label = new Label();
             label3 = new Label();
-            AntialiasSetting_ComboBox = new ComboBox();
+            FontRenderMode_ComboBox = new ComboBox();
             label4 = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             label6 = new Label();
@@ -69,6 +69,7 @@
             Notify_Label = new Label();
             GlyphInfo_Label = new Label();
             MousePosition_Label = new Label();
+            AtlasZoomFactor_ComboBox = new ComboBox();
             AtlasBackground_Label = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
             menuStrip1 = new MenuStrip();
@@ -108,7 +109,7 @@
             SystemFonts_ListBox.Location = new Point(3, 32);
             SystemFonts_ListBox.Name = "SystemFonts_ListBox";
             SystemFonts_ListBox.ScrollAlwaysVisible = true;
-            SystemFonts_ListBox.Size = new Size(220, 154);
+            SystemFonts_ListBox.Size = new Size(220, 124);
             SystemFonts_ListBox.TabIndex = 0;
             SystemFonts_ListBox.SelectedIndexChanged += SystemFonts_ListBox_SelectedIndexChanged;
             // 
@@ -133,10 +134,10 @@
             tableLayoutPanel1.SetColumnSpan(Atlas_Panel, 3);
             Atlas_Panel.Controls.Add(Output_PictureBox);
             Atlas_Panel.Dock = DockStyle.Fill;
-            Atlas_Panel.Location = new Point(229, 215);
+            Atlas_Panel.Location = new Point(229, 242);
             Atlas_Panel.Name = "Atlas_Panel";
-            tableLayoutPanel1.SetRowSpan(Atlas_Panel, 4);
-            Atlas_Panel.Size = new Size(597, 319);
+            tableLayoutPanel1.SetRowSpan(Atlas_Panel, 3);
+            Atlas_Panel.Size = new Size(552, 258);
             Atlas_Panel.TabIndex = 3;
             // 
             // Output_PictureBox
@@ -184,7 +185,8 @@
             GlyphGrid_Label.Dock = DockStyle.Fill;
             GlyphGrid_Label.Location = new Point(229, 29);
             GlyphGrid_Label.Name = "GlyphGrid_Label";
-            GlyphGrid_Label.Size = new Size(597, 160);
+            tableLayoutPanel1.SetRowSpan(GlyphGrid_Label, 3);
+            GlyphGrid_Label.Size = new Size(552, 181);
             GlyphGrid_Label.TabIndex = 7;
             GlyphGrid_Label.Paint += GlyphGrid_Label_Paint;
             GlyphGrid_Label.MouseClick += GlyphGrid_Label_MouseClick;
@@ -196,24 +198,24 @@
             label3.Location = new Point(229, 3);
             label3.Margin = new Padding(3);
             label3.Name = "label3";
-            label3.Size = new Size(497, 23);
+            label3.Size = new Size(452, 23);
             label3.TabIndex = 8;
             label3.Text = "Glyphs To Include / Exclude";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // AntialiasSetting_ComboBox
+            // FontRenderMode_ComboBox
             // 
-            tableLayoutPanel3.SetColumnSpan(AntialiasSetting_ComboBox, 4);
-            AntialiasSetting_ComboBox.Dock = DockStyle.Fill;
-            AntialiasSetting_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            AntialiasSetting_ComboBox.FormattingEnabled = true;
-            AntialiasSetting_ComboBox.Items.AddRange(new object[] { "SystemDefault", "SingleBitPerPixelGridFit", "SingleBitPerPixel", "ClearTypeGridFit", "AntiAliasGridFit", "AntiAlias" });
-            AntialiasSetting_ComboBox.Location = new Point(3, 62);
-            AntialiasSetting_ComboBox.Name = "AntialiasSetting_ComboBox";
-            AntialiasSetting_ComboBox.Size = new Size(134, 23);
-            AntialiasSetting_ComboBox.TabIndex = 9;
-            AntialiasSetting_ComboBox.SelectedIndexChanged += AntialiasSetting_ComboBox_SelectedIndexChanged;
-            AntialiasSetting_ComboBox.KeyDown += SuppressSystemBeeps;
+            tableLayoutPanel3.SetColumnSpan(FontRenderMode_ComboBox, 3);
+            FontRenderMode_ComboBox.Dock = DockStyle.Fill;
+            FontRenderMode_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            FontRenderMode_ComboBox.FormattingEnabled = true;
+            FontRenderMode_ComboBox.Items.AddRange(new object[] { "Pixelated", "Smooth" });
+            FontRenderMode_ComboBox.Location = new Point(3, 62);
+            FontRenderMode_ComboBox.Name = "FontRenderMode_ComboBox";
+            FontRenderMode_ComboBox.Size = new Size(99, 23);
+            FontRenderMode_ComboBox.TabIndex = 9;
+            FontRenderMode_ComboBox.SelectedIndexChanged += FontRenderMode_ComboBox_SelectedIndexChanged;
+            FontRenderMode_ComboBox.KeyDown += SuppressSystemBeeps;
             // 
             // label4
             // 
@@ -239,32 +241,34 @@
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(label6, 0, 2);
             tableLayoutPanel1.Controls.Add(CustomFontName_Label, 0, 3);
-            tableLayoutPanel1.Controls.Add(groupBox1, 0, 5);
+            tableLayoutPanel1.Controls.Add(groupBox1, 0, 6);
             tableLayoutPanel1.Controls.Add(groupBox2, 0, 4);
             tableLayoutPanel1.Controls.Add(ChooseCustomFont_Button, 1, 3);
             tableLayoutPanel1.Controls.Add(GlyphGrid_Label, 2, 1);
-            tableLayoutPanel1.Controls.Add(Atlas_Panel, 2, 3);
+            tableLayoutPanel1.Controls.Add(Atlas_Panel, 2, 5);
             tableLayoutPanel1.Controls.Add(label3, 2, 0);
-            tableLayoutPanel1.Controls.Add(label5, 2, 2);
+            tableLayoutPanel1.Controls.Add(label5, 2, 4);
             tableLayoutPanel1.Controls.Add(IncludeNone_Button, 4, 0);
             tableLayoutPanel1.Controls.Add(IncludeAll_Button, 3, 0);
-            tableLayoutPanel1.Controls.Add(Notify_Label, 0, 7);
-            tableLayoutPanel1.Controls.Add(GlyphInfo_Label, 2, 7);
-            tableLayoutPanel1.Controls.Add(MousePosition_Label, 3, 7);
-            tableLayoutPanel1.Controls.Add(AtlasBackground_Label, 4, 2);
+            tableLayoutPanel1.Controls.Add(Notify_Label, 0, 8);
+            tableLayoutPanel1.Controls.Add(GlyphInfo_Label, 2, 8);
+            tableLayoutPanel1.Controls.Add(MousePosition_Label, 3, 8);
+            tableLayoutPanel1.Controls.Add(AtlasZoomFactor_ComboBox, 4, 4);
+            tableLayoutPanel1.Controls.Add(AtlasBackground_Label, 3, 4);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 24);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 8;
+            tableLayoutPanel1.RowCount = 9;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 160F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 23F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 130F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 160F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 131F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 133F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
-            tableLayoutPanel1.Size = new Size(829, 562);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
+            tableLayoutPanel1.Size = new Size(784, 532);
             tableLayoutPanel1.TabIndex = 11;
             // 
             // label6
@@ -272,10 +276,10 @@
             label6.AutoSize = true;
             tableLayoutPanel1.SetColumnSpan(label6, 2);
             label6.Dock = DockStyle.Fill;
-            label6.Location = new Point(3, 192);
+            label6.Location = new Point(3, 162);
             label6.Margin = new Padding(3);
             label6.Name = "label6";
-            label6.Size = new Size(220, 17);
+            label6.Size = new Size(220, 16);
             label6.TabIndex = 16;
             label6.Text = "Custom Font";
             label6.TextAlign = ContentAlignment.MiddleCenter;
@@ -285,7 +289,7 @@
             CustomFontName_Label.AutoSize = true;
             CustomFontName_Label.BorderStyle = BorderStyle.FixedSingle;
             CustomFontName_Label.Dock = DockStyle.Fill;
-            CustomFontName_Label.Location = new Point(3, 215);
+            CustomFontName_Label.Location = new Point(3, 184);
             CustomFontName_Label.Margin = new Padding(3);
             CustomFontName_Label.Name = "CustomFontName_Label";
             CustomFontName_Label.Size = new Size(184, 23);
@@ -298,9 +302,9 @@
             tableLayoutPanel1.SetColumnSpan(groupBox1, 2);
             groupBox1.Controls.Add(tableLayoutPanel2);
             groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Location = new Point(3, 404);
+            groupBox1.Location = new Point(3, 373);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(220, 132);
+            groupBox1.Size = new Size(220, 127);
             groupBox1.TabIndex = 44;
             groupBox1.TabStop = false;
             groupBox1.Text = "Export Options";
@@ -324,7 +328,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 29F));
-            tableLayoutPanel2.Size = new Size(214, 110);
+            tableLayoutPanel2.Size = new Size(214, 105);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // label14
@@ -394,7 +398,7 @@
             IncludeGlyphSpacing_CheckBox.Dock = DockStyle.Fill;
             IncludeGlyphSpacing_CheckBox.Location = new Point(95, 81);
             IncludeGlyphSpacing_CheckBox.Name = "IncludeGlyphSpacing_CheckBox";
-            IncludeGlyphSpacing_CheckBox.Size = new Size(116, 26);
+            IncludeGlyphSpacing_CheckBox.Size = new Size(116, 23);
             IncludeGlyphSpacing_CheckBox.TabIndex = 38;
             IncludeGlyphSpacing_CheckBox.Text = "Glyph Spacing";
             IncludeGlyphSpacing_CheckBox.UseVisualStyleBackColor = true;
@@ -404,8 +408,9 @@
             tableLayoutPanel1.SetColumnSpan(groupBox2, 2);
             groupBox2.Controls.Add(tableLayoutPanel3);
             groupBox2.Dock = DockStyle.Fill;
-            groupBox2.Location = new Point(3, 244);
+            groupBox2.Location = new Point(3, 213);
             groupBox2.Name = "groupBox2";
+            tableLayoutPanel1.SetRowSpan(groupBox2, 2);
             groupBox2.Size = new Size(220, 154);
             groupBox2.TabIndex = 45;
             groupBox2.TabStop = false;
@@ -433,7 +438,7 @@
             tableLayoutPanel3.Controls.Add(label9, 0, 2);
             tableLayoutPanel3.Controls.Add(label13, 4, 4);
             tableLayoutPanel3.Controls.Add(OutlineWidth_NumericUpDown, 4, 5);
-            tableLayoutPanel3.Controls.Add(AntialiasSetting_ComboBox, 0, 3);
+            tableLayoutPanel3.Controls.Add(FontRenderMode_ComboBox, 0, 3);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(3, 19);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -536,13 +541,13 @@
             // label9
             // 
             label9.AutoSize = true;
-            tableLayoutPanel3.SetColumnSpan(label9, 4);
+            tableLayoutPanel3.SetColumnSpan(label9, 3);
             label9.Dock = DockStyle.Fill;
             label9.Location = new Point(3, 44);
             label9.Name = "label9";
-            label9.Size = new Size(134, 15);
+            label9.Size = new Size(99, 15);
             label9.TabIndex = 24;
-            label9.Text = "AntiAliasing";
+            label9.Text = "Render Mode";
             label9.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label13
@@ -572,7 +577,7 @@
             // ChooseCustomFont_Button
             // 
             ChooseCustomFont_Button.Dock = DockStyle.Fill;
-            ChooseCustomFont_Button.Location = new Point(193, 215);
+            ChooseCustomFont_Button.Location = new Point(193, 184);
             ChooseCustomFont_Button.Name = "ChooseCustomFont_Button";
             ChooseCustomFont_Button.Size = new Size(30, 23);
             ChooseCustomFont_Button.TabIndex = 15;
@@ -583,12 +588,11 @@
             // label5
             // 
             label5.AutoSize = true;
-            tableLayoutPanel1.SetColumnSpan(label5, 2);
             label5.Dock = DockStyle.Fill;
-            label5.Location = new Point(229, 192);
+            label5.Location = new Point(229, 213);
             label5.Margin = new Padding(3);
             label5.Name = "label5";
-            label5.Size = new Size(547, 17);
+            label5.Size = new Size(452, 23);
             label5.TabIndex = 11;
             label5.Text = "Glyph Atlas";
             label5.TextAlign = ContentAlignment.MiddleCenter;
@@ -596,7 +600,7 @@
             // IncludeNone_Button
             // 
             IncludeNone_Button.Dock = DockStyle.Fill;
-            IncludeNone_Button.Location = new Point(782, 3);
+            IncludeNone_Button.Location = new Point(737, 3);
             IncludeNone_Button.Name = "IncludeNone_Button";
             IncludeNone_Button.Size = new Size(44, 23);
             IncludeNone_Button.TabIndex = 13;
@@ -607,7 +611,7 @@
             // IncludeAll_Button
             // 
             IncludeAll_Button.Dock = DockStyle.Fill;
-            IncludeAll_Button.Location = new Point(732, 3);
+            IncludeAll_Button.Location = new Point(687, 3);
             IncludeAll_Button.Name = "IncludeAll_Button";
             IncludeAll_Button.Size = new Size(44, 23);
             IncludeAll_Button.TabIndex = 12;
@@ -620,18 +624,20 @@
             Notify_Label.BorderStyle = BorderStyle.Fixed3D;
             tableLayoutPanel1.SetColumnSpan(Notify_Label, 2);
             Notify_Label.Dock = DockStyle.Fill;
-            Notify_Label.Location = new Point(3, 537);
+            Notify_Label.Location = new Point(3, 503);
+            Notify_Label.Margin = new Padding(3, 0, 3, 3);
             Notify_Label.Name = "Notify_Label";
-            Notify_Label.Size = new Size(220, 25);
+            Notify_Label.Size = new Size(220, 26);
             Notify_Label.TabIndex = 34;
             // 
             // GlyphInfo_Label
             // 
             GlyphInfo_Label.BorderStyle = BorderStyle.Fixed3D;
             GlyphInfo_Label.Dock = DockStyle.Fill;
-            GlyphInfo_Label.Location = new Point(229, 537);
+            GlyphInfo_Label.Location = new Point(229, 503);
+            GlyphInfo_Label.Margin = new Padding(3, 0, 3, 3);
             GlyphInfo_Label.Name = "GlyphInfo_Label";
-            GlyphInfo_Label.Size = new Size(497, 25);
+            GlyphInfo_Label.Size = new Size(452, 26);
             GlyphInfo_Label.TabIndex = 20;
             GlyphInfo_Label.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -640,21 +646,32 @@
             MousePosition_Label.BorderStyle = BorderStyle.Fixed3D;
             tableLayoutPanel1.SetColumnSpan(MousePosition_Label, 2);
             MousePosition_Label.Dock = DockStyle.Fill;
-            MousePosition_Label.Location = new Point(732, 537);
+            MousePosition_Label.Location = new Point(687, 503);
+            MousePosition_Label.Margin = new Padding(3, 0, 3, 3);
             MousePosition_Label.Name = "MousePosition_Label";
-            MousePosition_Label.Size = new Size(94, 25);
+            MousePosition_Label.Size = new Size(94, 26);
             MousePosition_Label.TabIndex = 19;
             MousePosition_Label.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // AtlasZoomFactor_ComboBox
+            // 
+            AtlasZoomFactor_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            AtlasZoomFactor_ComboBox.FormattingEnabled = true;
+            AtlasZoomFactor_ComboBox.Items.AddRange(new object[] { "1X", "2X", "4X", "8X" });
+            AtlasZoomFactor_ComboBox.Location = new Point(737, 213);
+            AtlasZoomFactor_ComboBox.Name = "AtlasZoomFactor_ComboBox";
+            AtlasZoomFactor_ComboBox.Size = new Size(44, 23);
+            AtlasZoomFactor_ComboBox.TabIndex = 47;
+            AtlasZoomFactor_ComboBox.SelectedIndexChanged += AtlasZoomFactor_ComboBox_SelectedIndexChanged;
             // 
             // AtlasBackground_Label
             // 
             AtlasBackground_Label.BackColor = SystemColors.ControlDarkDark;
             AtlasBackground_Label.BorderStyle = BorderStyle.Fixed3D;
-            AtlasBackground_Label.Dock = DockStyle.Fill;
-            AtlasBackground_Label.Location = new Point(779, 192);
+            AtlasBackground_Label.Location = new Point(684, 213);
             AtlasBackground_Label.Margin = new Padding(0, 3, 3, 0);
             AtlasBackground_Label.Name = "AtlasBackground_Label";
-            AtlasBackground_Label.Size = new Size(47, 20);
+            AtlasBackground_Label.Size = new Size(47, 26);
             AtlasBackground_Label.TabIndex = 46;
             AtlasBackground_Label.Click += AtlasBackground_Label_Click;
             // 
@@ -663,7 +680,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, toolsToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(829, 24);
+            menuStrip1.Size = new Size(784, 24);
             menuStrip1.TabIndex = 12;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -774,13 +791,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(829, 586);
+            ClientSize = new Size(784, 556);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(menuStrip1);
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
-            MinimumSize = new Size(720, 620);
+            MinimumSize = new Size(720, 595);
             Name = "Form1";
             Text = "FontApp";
             FormClosing += Form1_FormClosing;
@@ -814,7 +831,7 @@
         private Label label2;
         private Label GlyphGrid_Label;
         private Label label3;
-        private ComboBox AntialiasSetting_ComboBox;
+        private ComboBox FontRenderMode_ComboBox;
         private Label label4;
         private TableLayoutPanel tableLayoutPanel1;
         private Label label5;
@@ -863,5 +880,6 @@
         private Label GlyphInfo_Label;
         private Label MousePosition_Label;
         private Label AtlasBackground_Label;
+        private ComboBox AtlasZoomFactor_ComboBox;
     }
 }

@@ -1,4 +1,5 @@
 //using System.Diagnostics;
+using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
@@ -20,14 +21,19 @@ namespace FontApp
 
         Font GridFont;
 
-        TextRenderingHint AntiAliasSetting;
         Color FillColor = Color.White; // Output colors
         Color OutlineColor = Color.Black;
+        int FontRenderMode;
         int GlyphSpacing;
+
         int AtlasWidth; // Dimensions of the output atlas
         int AtlasHeight;
         Bitmap AtlasBitmap;
         Color AtlasBackgroundColor;
+
+        Bitmap ZoomedBitmap;
+        int AtlasZoomFactor;
+        int[] ZoomFactors = new[] { 1, 2, 4, 8 };
 
         // Included glyphs
         readonly int FirstGlyph = 32; // SPACE (0x20) HARDCODED
@@ -84,6 +90,8 @@ namespace FontApp
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            ZoomedBitmap?.Dispose();
+
             BitmapGraphics.Dispose();
 
             WhiteBrush.Dispose();
@@ -103,11 +111,11 @@ namespace FontApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void AntialiasSetting_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        void FontRenderMode_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (AntialiasSetting_ComboBox.SelectedIndex == -1) return;
+            if (FontRenderMode_ComboBox.SelectedIndex == -1) return;
 
-            AntiAliasSetting = (TextRenderingHint)AntialiasSetting_ComboBox.SelectedIndex;
+            FontRenderMode = FontRenderMode_ComboBox.SelectedIndex;
 
             Repaint();
         }
@@ -438,10 +446,17 @@ namespace FontApp
                         Bitmap b = new Bitmap(glyphWidth + ArbitraryGlyphDimensionAmount, glyphHeight + ArbitraryGlyphDimensionAmount);
                         Graphics g = Graphics.FromImage(b);
 
-                        g.SmoothingMode = SmoothingMode.AntiAlias;
-                        g.CompositingMode = CompositingMode.SourceOver;
-                        g.CompositingQuality = CompositingQuality.HighQuality;
-                        g.TextRenderingHint = AntiAliasSetting;
+
+                        var CompositingModes = new CompositingMode[] { CompositingMode.SourceCopy, CompositingMode.SourceOver };
+                        var SmoothingModes = new SmoothingMode[] { SmoothingMode.HighSpeed, SmoothingMode.AntiAlias };
+                        var CompositingQualities = new CompositingQuality[] { CompositingQuality.HighSpeed, CompositingQuality.HighQuality };
+                        var TextRenderingHints = new TextRenderingHint[] { TextRenderingHint.SingleBitPerPixel, TextRenderingHint.ClearTypeGridFit };
+
+                        g.SmoothingMode = SmoothingModes[FontRenderMode];
+                        g.CompositingMode = CompositingModes[FontRenderMode];
+                        g.CompositingQuality = CompositingQualities[FontRenderMode];
+
+                        g.TextRenderingHint = TextRenderingHints[FontRenderMode];
 
                         if (outlined) g.DrawPath(outlinePen, path); // Draw outline
                         g.FillPath(fillBrush, path); // Fill
@@ -507,12 +522,59 @@ namespace FontApp
                     }
                 }
 
-                Output_PictureBox.Size = AtlasBitmap.Size;
-                Output_PictureBox.Image = AtlasBitmap;
+                // Scale atlas according to zoom level
+                ZoomedBitmap = new Bitmap(AtlasWidth * ZoomFactors[AtlasZoomFactor], AtlasHeight * ZoomFactors[AtlasZoomFactor]);
+                var zoomGraphics = Graphics.FromImage(ZoomedBitmap);
+                zoomGraphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+                zoomGraphics.DrawImage(AtlasBitmap, 0, 0, ZoomedBitmap.Width, ZoomedBitmap.Height);
 
+                Output_PictureBox.Size = ZoomedBitmap.Size;
+                Output_PictureBox.Image = ZoomedBitmap;
+
+                zoomGraphics.Dispose();
                 atlasGraphics.Dispose();
             }
         }
+
+        /// <summary>
+        /// Zoom the displayed atlas according to the current zoom factor
+        /// </summary>
+        private void Zoom()
+        {
+            if (AtlasBitmap == null) return;
+
+            ZoomedBitmap?.Dispose();
+
+            Graphics atlasGraphics = Graphics.FromImage(AtlasBitmap);
+
+            ZoomedBitmap = new Bitmap(AtlasWidth * ZoomFactors[AtlasZoomFactor], AtlasHeight * ZoomFactors[AtlasZoomFactor]);
+
+            var zoomGraphics = Graphics.FromImage(ZoomedBitmap);
+            zoomGraphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+
+            zoomGraphics.DrawImage(AtlasBitmap, 0, 0, ZoomedBitmap.Width, ZoomedBitmap.Height);
+
+            Output_PictureBox.Size = ZoomedBitmap.Size;
+            Output_PictureBox.Image = ZoomedBitmap;
+
+            zoomGraphics.Dispose();
+            atlasGraphics.Dispose();
+        }
+
+        /// <summary>
+        /// Set atlas display zoom factor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AtlasZoomFactor_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (AtlasZoomFactor_ComboBox.SelectedIndex == -1) return;
+
+            AtlasZoomFactor = AtlasZoomFactor_ComboBox.SelectedIndex;
+
+            Zoom();
+        }
+
 
         #region Calculate glyph bounds
 
@@ -746,9 +808,14 @@ namespace FontApp
 
             MousePosition_Label.Text = $"{e.X}, {e.Y}";
 
+            var zoomFactor = ZoomFactors[AtlasZoomFactor];
+
+            var x = e.X / zoomFactor;
+            var y = e.Y / zoomFactor;
+
             foreach (var glyphInfo in Glyphs)
             {
-                if (glyphInfo.Include && e.X >= glyphInfo.X && e.X < glyphInfo.X + glyphInfo.Width && e.Y >= glyphInfo.Y && e.Y < glyphInfo.Y + glyphInfo.Height)
+                if (glyphInfo.Include && x >= glyphInfo.X && x < glyphInfo.X + glyphInfo.Width && y >= glyphInfo.Y && y < glyphInfo.Y + glyphInfo.Height)
                 {
                     GlyphInfo_Label.Text = ($"Atlas: {AtlasBitmap.Width},{AtlasBitmap.Height}   Glyph: {glyphInfo.CharCode}   Ascii: {glyphInfo.AsciiChar}   X: {glyphInfo.X}   Y: {glyphInfo.Y} Width:   {glyphInfo.Width} Height: {glyphInfo.Height}");
                     return;
@@ -829,12 +896,21 @@ namespace FontApp
             FontSpacing_NumericUpDown.Value = GlyphSpacing;
 
             FontStyle_ComboBox.SelectedIndex = 0;
-            AntialiasSetting_ComboBox.SelectedIndex = 3;
 
             ExportFormat_comboBox.SelectedIndex = 0;
             IncludeFontName_CheckBox.Checked = true;
             IncludeGlyphIndices_CheckBox.Checked = true;
             IncludeGlyphSpacing_CheckBox.Checked = true;
+
+            FontRenderMode = 1;
+            FontRenderMode_ComboBox.SelectedIndex = FontRenderMode;
+
+            AtlasBackgroundColor = SystemColors.ControlDarkDark;
+            Atlas_Panel.BackColor = AtlasBackgroundColor;
+            AtlasBackground_Label.BackColor = AtlasBackgroundColor;
+
+            AtlasZoomFactor = 0;
+            AtlasZoomFactor_ComboBox.SelectedIndex = AtlasZoomFactor;
         }
 
         #region File Operations (Open, Save, Export)
@@ -892,7 +968,7 @@ namespace FontApp
 
                     writer.WriteLine($"LASTGLYPH={LastGlyph}");
 
-                    writer.WriteLine($"ANTIALIASING={(int)AntiAliasSetting}");
+                    writer.WriteLine($"RENDERING_MODE={FontRenderMode}");
 
                     writer.WriteLine($"SPACING={GlyphSpacing}");
 
@@ -984,10 +1060,10 @@ namespace FontApp
 
                             break;
 
-                        case "ANTIALIASING":
+                        case "RENDERING_MODE":
                             int i = Convert.ToInt32(parts[1]);
-                            AntiAliasSetting = (TextRenderingHint)i;
-                            AntialiasSetting_ComboBox.SelectedIndex = i;
+                            FontRenderMode = i;
+                            FontRenderMode_ComboBox.SelectedIndex = i;
                             break;
 
                         case "SPACING":
@@ -1257,6 +1333,7 @@ namespace FontApp
         }
 
         #endregion
+
 
     }
 }
