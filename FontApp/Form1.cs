@@ -945,7 +945,7 @@ namespace FontApp
             if (CustomFontName == null && SystemFontName == null) return;
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "FontApp files (*.fap)|*.fap|All Files(*.*)|*.*";
+            saveFileDialog.Filter = "FontApp files (*.*)|*.*";
             saveFileDialog.FilterIndex = 0;
             saveFileDialog.RestoreDirectory = true;
 
@@ -966,7 +966,7 @@ namespace FontApp
             {
                 try
                 {
-                    StreamWriter writer = new StreamWriter(ProjectName);
+                    StreamWriter writer = new StreamWriter($"{ProjectName}.fap");
 
                     writer.WriteLine($"SYSTEM_FONTNAME={SystemFontName}");
 
@@ -1189,7 +1189,7 @@ namespace FontApp
             if (OutputFont == null) return;
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Files(*.*)|*.*";
+            saveFileDialog.Filter = "Export Files (*.*)|*.*";
             saveFileDialog.FilterIndex = 0;
             saveFileDialog.RestoreDirectory = true;
 
