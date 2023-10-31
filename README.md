@@ -42,7 +42,7 @@ v1.0.5 (31 Oct 2023)
 
 <details><summary>v1.0.2 (28 Apr 2023)</summary><p>
 
-- Initial public release.
+- My dog ate my release notes!
 
 </p></details>
 
@@ -62,7 +62,7 @@ v1.0.5 (31 Oct 2023)
 
 <details><summary>v1.0.0 (26 Apr 2023)</summary><p>
 
-- My dog ate my release notes!
+- Initial public release.
 
 </p></details>
 
