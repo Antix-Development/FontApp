@@ -140,6 +140,8 @@ You can also change a few rudimentary export options in the `Export Options` sec
 
 - JS Names - Selecting this option will cause strings in the output JSON file to be of the correct format for JavaScript.
 
+- Minify - Selecting this option will cause JSON output to be minified (all whitespace removed, and a single line of text).
+
 ```
 FONTNAME=Exocet-Light
 SPACING=2
