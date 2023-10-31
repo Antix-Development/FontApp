@@ -5,7 +5,7 @@
 
 ![FontApp](fontapp.png)
 
-FontApp generates bitmap fonts for use in 2D applications such as games. It works in a similar manner as [BMFont ](https://www.angelcode.com/products/bmfont/) by AngelCode, so if you are famaliar with that application, FontApp will be quite easy to use. Please note however that FontApp is nowhere near as advanced as BmFont and possibly contains many undocumented bugs and features :D
+FontApp generates bitmap fonts for use in 2D applications such as games. It works in a similar manner as [BMFont ](https://www.angelcode.com/products/bmfont/) by AngelCode, so if you are famialiar with that application, FontApp will be quite easy to use. Please note however that FontApp is nowhere near as advanced as BmFont and possibly contains many undocumented bugs and features :D
 
 FontApp can generate bitmap fonts from TTF and OTF font files. It can access system fonts installed on the host system as well as custom random font files.
 
