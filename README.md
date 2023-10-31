@@ -138,10 +138,6 @@ You can also change a few rudimentary export options in the `Export Options` sec
 
 - Text - The descriptor file will be exported in a plain old text file, with each line in the file describing some aspect of the font.
 
-- JS Names - Selecting this option will cause strings in the output JSON file to be of the correct format for JavaScript.
-
-- Minify - Selecting this option will cause JSON output to be minified (all whitespace removed, and a single line of text).
-
 ```
 FONTNAME=Exocet-Light
 SPACING=2
@@ -176,6 +172,12 @@ Parsing the text file should be trivial and you can look in the FontApp code to 
 }
 
 ```
+
+There are two additional export options that apply to JSON exports..
+
+- JS Names - Selecting this option will cause strings in the output JSON file to be of the correct format for JavaScript.
+
+- Minify - Selecting this option will cause JSON output to be minified (all whitespace removed, and a single line of text).
 
 Parsing the JSON file will be more problematic as you will need a class to decode to and will require some 3rd party package such as [Json.NET](https://www.newtonsoft.com/json) to perform the decoding.
 
