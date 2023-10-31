@@ -1273,8 +1273,6 @@ namespace FontApp
                     {
                         StreamWriter writer = new StreamWriter($"{ExportName}.json");
 
-                        var output = new List<string>();
-
                         string[] strings;
 
                         string[] CStrings = { // C# strings
@@ -1305,6 +1303,8 @@ namespace FontApp
 
                         strings = (UseJSNames_CheckBox.Checked) ? JSStrings : CStrings; // Choose appropriate strings
 
+                        var output = new List<string>(); // A list where we will accumulate strings
+
                         output.Add(MinifyString("{"));
                         if (IncludeFontName_CheckBox.Checked) output.Add(MinifyString($"  \"{strings[0]}\": \"{fontName}\","));
                         if (IncludeGlyphSpacing_CheckBox.Checked) output.Add(MinifyString($"  \"{strings[1]}\": {GlyphSpacing},"));
@@ -1317,6 +1317,7 @@ namespace FontApp
 
                         // Create temp list because we need to bugger about with the last glyph exported
                         List<GlyphInfo> tempGlyphs = new List<GlyphInfo>();
+
                         foreach (GlyphInfo glyphInfo in Glyphs)
                         {
                             if (glyphInfo.Include && glyphInfo.CharCode != 127) tempGlyphs.Add(glyphInfo);
