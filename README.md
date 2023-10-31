@@ -15,9 +15,19 @@ WARNING:  Some fonts don't render correctly at all and some fonts also exhibit g
 
 ### What's New?
 
-v1.0.4 (8 May 2023)
+v1.0.5 (31 Oct 2023)
+
+- Added option to save JSON using JavaScript case (object keys start with a lower case character).
+- Added option to output minified JSON data.
+
+
+
+<details><summary>v1.0.4 (8 May 2023)</summary><p>
 
 - Fixed filename shenanigans when saving and exporting.
+
+</p></details>
+
 
 
 <details><summary>v1.0.3 (28 Apr 2023)</summary><p>
@@ -36,6 +46,8 @@ v1.0.4 (8 May 2023)
 
 </p></details>
 
+
+
 <details><summary>v1.0.1 (v1.0.1 (27 Apr 2023))</summary><p>
 
 - Fixed issue where about dialog hyperlinks had been omitted.
@@ -45,6 +57,8 @@ v1.0.4 (8 May 2023)
 - Tweaked user interface.
 
 </p></details>
+
+
 
 <details><summary>v1.0.0 (26 Apr 2023)</summary><p>
 
@@ -124,6 +138,8 @@ You can also change a few rudimentary export options in the `Export Options` sec
 
 - Text - The descriptor file will be exported in a plain old text file, with each line in the file describing some aspect of the font.
 
+- JS Names - Selecting this option will cause strings in the output JSON file to be of the correct format for JavaScript.
+
 ```
 FONTNAME=Exocet-Light
 SPACING=2
@@ -161,6 +177,8 @@ Parsing the text file should be trivial and you can look in the FontApp code to 
 
 Parsing the JSON file will be more problematic as you will need a class to decode to and will require some 3rd party package such as [Json.NET](https://www.newtonsoft.com/json) to perform the decoding.
 
+NOTE: If you are using the output with JavaScript, then everything you need is built into JavaScript.
+
 NOTE: I decided to not include the aforementioned package in FontApp, and instead manually generated exported the JSON file in code.
 
 NOTE: All exported glyphs are the same height, which is the height of the tallest glyph in the font.
@@ -182,5 +200,7 @@ FontApp is a Windows application and I'm not sure if it could even be compiled f
 As you can probably tell, there are a bunch of extra features and what not that could be added to make FontApp better. Raise an issue if you really want it made so and I'll try my lame best ;)
 
 FontApp has been created for my personal use as part of my [FNA](https://fna-xna.github.io/) based 2D game engine. This being the case, there may be nasty bugs (features?) present in FontApp, however, since FontApp is fully open sourced, you can fix those bugs yourself, or maybe raise an issue here and I'll do my best to resolve it.
+
+NOTE: As of v1.0.5 I've given up on FNA and gone back to making HTML5 games, hence the update to make the output more digestable by JavaScript applications :)
 
 And lastly, if you use FontApp and think it's cool, maybe you would consider [buying me a coffee](https://www.buymeacoffee.com/antixdevelu) :)

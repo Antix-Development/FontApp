@@ -40,7 +40,7 @@
             // 
             // AboutOkay_Button
             // 
-            AboutOkay_Button.Location = new Point(325, 133);
+            AboutOkay_Button.Location = new Point(391, 133);
             AboutOkay_Button.Name = "AboutOkay_Button";
             AboutOkay_Button.Size = new Size(127, 23);
             AboutOkay_Button.TabIndex = 0;
@@ -113,7 +113,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = AboutOkay_Button;
-            ClientSize = new Size(464, 168);
+            ClientSize = new Size(530, 168);
             ControlBox = false;
             Controls.Add(label5);
             Controls.Add(label4);

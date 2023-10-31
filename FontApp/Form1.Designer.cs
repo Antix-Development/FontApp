@@ -44,6 +44,8 @@
             CustomFontName_Label = new Label();
             groupBox1 = new GroupBox();
             tableLayoutPanel2 = new TableLayoutPanel();
+            MinifyJS_CheckBox = new CheckBox();
+            UseJSNames_CheckBox = new CheckBox();
             label14 = new Label();
             label11 = new Label();
             ExportFormat_comboBox = new ComboBox();
@@ -312,8 +314,10 @@
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.990654F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.009346F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.0654221F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.9345779F));
+            tableLayoutPanel2.Controls.Add(MinifyJS_CheckBox, 0, 3);
+            tableLayoutPanel2.Controls.Add(UseJSNames_CheckBox, 0, 2);
             tableLayoutPanel2.Controls.Add(label14, 1, 0);
             tableLayoutPanel2.Controls.Add(label11, 0, 0);
             tableLayoutPanel2.Controls.Add(ExportFormat_comboBox, 0, 1);
@@ -331,13 +335,37 @@
             tableLayoutPanel2.Size = new Size(214, 105);
             tableLayoutPanel2.TabIndex = 0;
             // 
+            // MinifyJS_CheckBox
+            // 
+            MinifyJS_CheckBox.AutoSize = true;
+            MinifyJS_CheckBox.Dock = DockStyle.Fill;
+            MinifyJS_CheckBox.Location = new Point(3, 81);
+            MinifyJS_CheckBox.Name = "MinifyJS_CheckBox";
+            MinifyJS_CheckBox.Size = new Size(99, 23);
+            MinifyJS_CheckBox.TabIndex = 43;
+            MinifyJS_CheckBox.Text = "Minify";
+            MinifyJS_CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // UseJSNames_CheckBox
+            // 
+            UseJSNames_CheckBox.AutoSize = true;
+            UseJSNames_CheckBox.Checked = true;
+            UseJSNames_CheckBox.CheckState = CheckState.Checked;
+            UseJSNames_CheckBox.Dock = DockStyle.Fill;
+            UseJSNames_CheckBox.Location = new Point(3, 52);
+            UseJSNames_CheckBox.Name = "UseJSNames_CheckBox";
+            UseJSNames_CheckBox.Size = new Size(99, 23);
+            UseJSNames_CheckBox.TabIndex = 42;
+            UseJSNames_CheckBox.Text = "JS Names";
+            UseJSNames_CheckBox.UseVisualStyleBackColor = true;
+            // 
             // label14
             // 
             label14.AutoSize = true;
             label14.Dock = DockStyle.Fill;
-            label14.Location = new Point(95, 0);
+            label14.Location = new Point(108, 0);
             label14.Name = "label14";
-            label14.Size = new Size(116, 20);
+            label14.Size = new Size(103, 20);
             label14.TabIndex = 41;
             label14.Text = "Include Fields";
             label14.TextAlign = ContentAlignment.MiddleCenter;
@@ -348,7 +376,7 @@
             label11.Dock = DockStyle.Fill;
             label11.Location = new Point(3, 0);
             label11.Name = "label11";
-            label11.Size = new Size(86, 20);
+            label11.Size = new Size(99, 20);
             label11.TabIndex = 39;
             label11.Text = "Format";
             label11.TextAlign = ContentAlignment.MiddleCenter;
@@ -361,7 +389,7 @@
             ExportFormat_comboBox.Items.AddRange(new object[] { "Text", "JSON" });
             ExportFormat_comboBox.Location = new Point(3, 23);
             ExportFormat_comboBox.Name = "ExportFormat_comboBox";
-            ExportFormat_comboBox.Size = new Size(86, 23);
+            ExportFormat_comboBox.Size = new Size(99, 23);
             ExportFormat_comboBox.TabIndex = 40;
             // 
             // IncludeFontName_CheckBox
@@ -370,9 +398,9 @@
             IncludeFontName_CheckBox.Checked = true;
             IncludeFontName_CheckBox.CheckState = CheckState.Checked;
             IncludeFontName_CheckBox.Dock = DockStyle.Fill;
-            IncludeFontName_CheckBox.Location = new Point(95, 23);
+            IncludeFontName_CheckBox.Location = new Point(108, 23);
             IncludeFontName_CheckBox.Name = "IncludeFontName_CheckBox";
-            IncludeFontName_CheckBox.Size = new Size(116, 23);
+            IncludeFontName_CheckBox.Size = new Size(103, 23);
             IncludeFontName_CheckBox.TabIndex = 36;
             IncludeFontName_CheckBox.Text = "Font Name";
             IncludeFontName_CheckBox.UseVisualStyleBackColor = true;
@@ -383,9 +411,9 @@
             IncludeGlyphIndices_CheckBox.Checked = true;
             IncludeGlyphIndices_CheckBox.CheckState = CheckState.Checked;
             IncludeGlyphIndices_CheckBox.Dock = DockStyle.Fill;
-            IncludeGlyphIndices_CheckBox.Location = new Point(95, 52);
+            IncludeGlyphIndices_CheckBox.Location = new Point(108, 52);
             IncludeGlyphIndices_CheckBox.Name = "IncludeGlyphIndices_CheckBox";
-            IncludeGlyphIndices_CheckBox.Size = new Size(116, 23);
+            IncludeGlyphIndices_CheckBox.Size = new Size(103, 23);
             IncludeGlyphIndices_CheckBox.TabIndex = 37;
             IncludeGlyphIndices_CheckBox.Text = "Glyph Range";
             IncludeGlyphIndices_CheckBox.UseVisualStyleBackColor = true;
@@ -396,9 +424,9 @@
             IncludeGlyphSpacing_CheckBox.Checked = true;
             IncludeGlyphSpacing_CheckBox.CheckState = CheckState.Checked;
             IncludeGlyphSpacing_CheckBox.Dock = DockStyle.Fill;
-            IncludeGlyphSpacing_CheckBox.Location = new Point(95, 81);
+            IncludeGlyphSpacing_CheckBox.Location = new Point(108, 81);
             IncludeGlyphSpacing_CheckBox.Name = "IncludeGlyphSpacing_CheckBox";
-            IncludeGlyphSpacing_CheckBox.Size = new Size(116, 23);
+            IncludeGlyphSpacing_CheckBox.Size = new Size(103, 23);
             IncludeGlyphSpacing_CheckBox.TabIndex = 38;
             IncludeGlyphSpacing_CheckBox.Text = "Glyph Spacing";
             IncludeGlyphSpacing_CheckBox.UseVisualStyleBackColor = true;
@@ -884,5 +912,7 @@
         private Label MousePosition_Label;
         private Label AtlasBackground_Label;
         private ComboBox AtlasZoomFactor_ComboBox;
+        private CheckBox UseJSNames_CheckBox;
+        private CheckBox MinifyJS_CheckBox;
     }
 }

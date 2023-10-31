@@ -1002,6 +1002,10 @@ namespace FontApp
 
                     writer.WriteLine($"INCLUDE_GLYPH_INDICES={BoolToString(IncludeGlyphIndices_CheckBox.Checked)}");
 
+                    writer.WriteLine($"USEJSNAMES={BoolToString(UseJSNames_CheckBox.Checked)}");
+
+                    writer.WriteLine($"MINIFYJS={BoolToString(MinifyJS_CheckBox.Checked)}");
+
                     foreach (GlyphInfo glyphInfo in Glyphs)
                     {
                         writer.WriteLine($"GLYPH={glyphInfo.CharCode},{BoolToString(glyphInfo.Include)}");
@@ -1135,6 +1139,14 @@ namespace FontApp
                             includedGlyphCount += (glyphInfo.Include) ? 1 : 0;
                             break;
 
+                        case "USEJSNAMES":
+                            UseJSNames_CheckBox.Checked = StringToBool(parts[1]);
+                            break;
+
+                        case "MINIFYJS":
+                            MinifyJS_CheckBox.Checked = StringToBool(parts[1]);
+                            break;
+
                         default:
                             //Debug.WriteLine($"OpenProject() Unknown part {parts[0]}");
                             break;
@@ -1202,6 +1214,25 @@ namespace FontApp
         }
 
         /// <summary>
+        /// Strip whitespace from the given string if minify js checkbox is checked
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        string MinifyString(string s)
+        {
+            return (MinifyJS_CheckBox.Checked) ? s.Replace(" ", "") : s;
+
+            //            if (MinifyJS_CheckBox.Checked)
+            //            {
+            //                return s.Replace(" ", "");
+            //            }
+            //            else
+            //            {
+            //                return s;
+            //            }
+        }
+
+        /// <summary>
         /// Export project using current filename
         /// </summary>
         void Export()
@@ -1242,15 +1273,47 @@ namespace FontApp
                     {
                         StreamWriter writer = new StreamWriter($"{ExportName}.json");
 
-                        writer.WriteLine("{");
-                        if (IncludeFontName_CheckBox.Checked) writer.WriteLine($"  \"FontName\": \"{fontName}\",");
-                        if (IncludeGlyphSpacing_CheckBox.Checked) writer.WriteLine($"  \"GlyphSpacing\": {GlyphSpacing},");
+                        var output = new List<string>();
+
+                        string[] strings;
+
+                        string[] CStrings = { // C# strings
+                            "FontName",
+                            "GlyphSpacing",
+                            "FirstGlyph",
+                            "LastGlyph",
+                            "CharCode",
+                            "X",
+                            "Y",
+                            "W",
+                            "H",
+                            "Glyphs",
+                        };
+
+                        string[] JSStrings = { // Javascript strings
+                            "fontName",
+                            "glyphSpacing",
+                            "firstGlyph",
+                            "lastGlyph",
+                            "charCode",
+                            "x",
+                            "y",
+                            "w",
+                            "h",
+                            "glyphs",
+                        };
+
+                        strings = (UseJSNames_CheckBox.Checked) ? JSStrings : CStrings; // Choose appropriate strings
+
+                        output.Add(MinifyString("{"));
+                        if (IncludeFontName_CheckBox.Checked) output.Add(MinifyString($"  \"{strings[0]}\": \"{fontName}\","));
+                        if (IncludeGlyphSpacing_CheckBox.Checked) output.Add(MinifyString($"  \"{strings[1]}\": {GlyphSpacing},"));
                         if (IncludeGlyphIndices_CheckBox.Checked)
                         {
-                            writer.WriteLine($"  \"FirstGlyph\": {FirstGlyph},");
-                            writer.WriteLine($"  \"LastGlyph\": {LastGlyph},");
+                            output.Add(MinifyString($"  \"{strings[2]}\": {FirstGlyph},"));
+                            output.Add(MinifyString($"  \"{strings[3]}\": {LastGlyph},"));
                         }
-                        writer.WriteLine($"  \"Glyphs\":[");
+                        output.Add(MinifyString($"  \"{strings[9]}\":["));
 
                         // Create temp list because we need to bugger about with the last glyph exported
                         List<GlyphInfo> tempGlyphs = new List<GlyphInfo>();
@@ -1259,29 +1322,34 @@ namespace FontApp
                             if (glyphInfo.Include && glyphInfo.CharCode != 127) tempGlyphs.Add(glyphInfo);
                         }
 
-                        for (int i = 0; i < tempGlyphs.Count - 1; i++)
+                        // Process all glyphs
+                        for (int i = 0; i < tempGlyphs.Count; i++)
                         {
                             var tempGlyph = tempGlyphs[i];
-                            writer.WriteLine("    {");
-                            writer.WriteLine($"      \"CharCode\": {tempGlyph.CharCode},");
-                            writer.WriteLine($"      \"X\": {tempGlyph.X + 1},");
-                            writer.WriteLine($"      \"Y\": {tempGlyph.Y + 1},");
-                            writer.WriteLine($"      \"W\": {tempGlyph.Width - 2},");
-                            writer.WriteLine($"      \"H\": {tempGlyph.Height - 2}");
-                            writer.WriteLine("    },");
+                            output.Add(MinifyString("    {"));
+                            output.Add(MinifyString($"      \"{strings[4]}\": {tempGlyph.CharCode},"));
+                            output.Add(MinifyString($"      \"{strings[5]}\": {tempGlyph.X + 1},"));
+                            output.Add(MinifyString($"      \"{strings[6]}\": {tempGlyph.Y + 1},"));
+                            output.Add(MinifyString($"      \"{strings[7]}\": {tempGlyph.Width - 2},"));
+                            output.Add(MinifyString($"      \"{strings[8]}\": {tempGlyph.Height - 2}"));
+                            output.Add(MinifyString((i == tempGlyphs.Count - 1) ? "    }" : "    },"));
                         }
 
-                        var lastGlyph = tempGlyphs[tempGlyphs.Count - 1];
-                        writer.WriteLine("    {");
-                        writer.WriteLine($"      \"CharCode\": {lastGlyph.CharCode},");
-                        writer.WriteLine($"      \"X\": {lastGlyph.X + 1},");
-                        writer.WriteLine($"      \"Y\": {lastGlyph.Y + 1},");
-                        writer.WriteLine($"      \"W\": {lastGlyph.Width - 2},");
-                        writer.WriteLine($"      \"H\": {lastGlyph.Height - 2}");
-                        writer.WriteLine("    }"); // << The buggery bit where we need to omit the final comma
+                        output.Add(MinifyString("  ]"));
+                        output.Add(MinifyString("}"));
 
-                        writer.WriteLine("  ]");
-                        writer.WriteLine("}");
+                        // If minify checkbox is checked, join all of the strings into a single and remake the list and add the single line
+                        if (MinifyJS_CheckBox.Checked)
+                        {
+                            var t = String.Join("", output);
+                            output = new List<string>() { t };
+                        }
+
+                        // Write all lines to the file
+                        foreach (string s in output)
+                        {
+                            writer.WriteLine(s);
+                        }
 
                         writer.Close();
 
